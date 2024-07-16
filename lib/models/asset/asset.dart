@@ -18,8 +18,8 @@ class Asset with _$Asset {
   }) = _Asset;
 
   bool get isComponent => sensorType != null;
-
   bool get isUnlinked => locationId == null && parentId == null;
+  bool get isEmpty => assets.isEmpty;
 
   factory Asset.fromJson(Map<String, dynamic> json) => _$AssetFromJson(json);
 }
