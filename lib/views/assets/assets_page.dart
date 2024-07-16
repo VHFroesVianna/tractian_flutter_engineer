@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:tractian_test/theme/app_colors.dart';
 import 'package:tractian_test/views/assets/components/locations_and_assets_tree.dart';
 import 'components/buttons_filter_row.dart';
 import 'components/search_ativo_ou_local_field.dart';
@@ -12,12 +13,12 @@ class AssetsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: const Color.fromRGBO(23, 25, 45, 1),
+        backgroundColor: AppColors.secondary,
         leading: IconButton(
             onPressed: () => Get.back(),
             icon: const Icon(
               Icons.arrow_back_ios,
-              color: Colors.white,
+              color: AppColors.background,
             )),
         title: const Text(
           'Assets',
@@ -33,9 +34,7 @@ class AssetsPage extends StatelessWidget {
             const ButtonsFilterRow(),
             const SizedBox(height: 15),
             Divider(color: Colors.grey[300], thickness: 2),
-            Expanded(
-              child: LocationsAndAssetsTree(unitName: unitName),
-            )
+            Expanded(child: LocationsAndAssetsTree(unitName: unitName)),
           ],
         ),
       ),

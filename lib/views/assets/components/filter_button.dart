@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
+import 'package:tractian_test/theme/app_colors.dart';
 
 abstract class FilterButton extends StatefulWidget {
   IconData get icon;
@@ -24,9 +25,7 @@ class _FilterButtonState extends State<FilterButton> {
         height: 50,
         duration: const Duration(milliseconds: 200),
         decoration: BoxDecoration(
-          color: selected
-              ? const Color.fromRGBO(33, 136, 255, 1)
-              : Colors.transparent,
+          color: selected ? AppColors.primary : Colors.transparent,
           border: selected
               ? null
               : Border.all(
