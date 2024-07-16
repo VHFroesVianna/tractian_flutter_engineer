@@ -17,6 +17,7 @@ class Location with _$Location {
   }) = _Location;
 
   bool get isTopLocation => parentId == null;
+  bool get isEmpty => sublocations.isEmpty && assets.isEmpty;
 
   factory Location.fromJson(Map<String, dynamic> json) =>
       _$LocationFromJson(json);
