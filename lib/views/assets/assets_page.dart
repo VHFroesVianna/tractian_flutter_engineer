@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:tractian_test/controllers/data/data_controller.dart';
+import 'package:tractian_test/controllers/filter/text_filter_controller.dart';
 import 'package:tractian_test/theme/app_colors.dart';
 import 'package:tractian_test/views/assets/components/locations_and_assets_tree.dart';
 import 'components/buttons_filter_row.dart';
@@ -11,6 +13,13 @@ class AssetsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final path = unitName?.split(' ').first.trim().toLowerCase();
+    final DataController dataController = Get.put(DataController(
+      locationsPath: 'assets/json/$path/locations.json',
+      assetsPath: 'assets/json/$path/assets.json',
+    ));
+    Get.lazyPut(() => TextFilterController(dataController: dataController));
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: AppColors.secondary,
@@ -34,7 +43,7 @@ class AssetsPage extends StatelessWidget {
             const ButtonsFilterRow(),
             const SizedBox(height: 15),
             Divider(color: Colors.grey[300], thickness: 2),
-            Expanded(child: LocationsAndAssetsTree(unitName: unitName)),
+            const Expanded(child: LocationsAndAssetsTree()),
           ],
         ),
       ),
