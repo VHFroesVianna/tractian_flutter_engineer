@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:tractian_test/controllers/data/data_controller.dart';
+import 'package:tractian_test/controllers/filter/button_filter_controller.dart';
 import 'package:tractian_test/controllers/filter/text_filter_controller.dart';
 import 'package:tractian_test/theme/app_colors.dart';
 import 'package:tractian_test/views/assets/components/locations_and_assets_tree.dart';
@@ -19,6 +20,7 @@ class AssetsPage extends StatelessWidget {
       assetsPath: 'assets/json/$path/assets.json',
     ));
     Get.lazyPut(() => TextFilterController(dataController: dataController));
+    Get.lazyPut(() => ButtonFilterController(dataController: dataController));
 
     return Scaffold(
       appBar: AppBar(

@@ -6,6 +6,7 @@ abstract class FilterButton extends StatefulWidget {
   IconData get icon;
   String get text;
   double get width;
+  void filter(bool selected);
 
   const FilterButton({super.key});
 
@@ -19,7 +20,10 @@ class _FilterButtonState extends State<FilterButton> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => setState(() => selected = !selected),
+      onTap: () {
+        setState(() => selected = !selected);
+        widget.filter(selected);
+      },
       child: AnimatedContainer(
         width: widget.width,
         height: 50,
