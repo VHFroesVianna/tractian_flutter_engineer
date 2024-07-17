@@ -16,18 +16,22 @@ class ComponentTile extends StatelessWidget {
         children: [
           Image.asset('assets/images/component.png'),
           const SizedBox(width: 10),
-          Text(component.name),
+          Flexible(child: Text(component.name, overflow: TextOverflow.visible)),
           const SizedBox(width: 5),
           component.sensorType?.toLowerCase() == 'energy'
-              ? PhosphorIcon(
-                  PhosphorIcons.lightning(PhosphorIconsStyle.fill),
-                  color: AppColors.energySensor,
-                  size: 15,
+              ? Flexible(
+                  child: PhosphorIcon(
+                    PhosphorIcons.lightning(PhosphorIconsStyle.fill),
+                    color: AppColors.energySensor,
+                    size: 15,
+                  ),
                 )
-              : PhosphorIcon(
-                  PhosphorIcons.circle(PhosphorIconsStyle.fill),
-                  color: AppColors.vibrationSensor,
-                  size: 15,
+              : Flexible(
+                  child: PhosphorIcon(
+                    PhosphorIcons.circle(PhosphorIconsStyle.fill),
+                    color: AppColors.vibrationSensor,
+                    size: 15,
+                  ),
                 ),
         ],
       ),
