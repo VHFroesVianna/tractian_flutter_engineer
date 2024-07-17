@@ -23,7 +23,8 @@ class AssetExpansionTile extends StatelessWidget {
                   color: AppColors.primary,
                 ),
                 const SizedBox(width: 5),
-                Text(asset.name),
+                Flexible(
+                    child: Text(asset.name, overflow: TextOverflow.visible)),
               ],
             ),
           )
