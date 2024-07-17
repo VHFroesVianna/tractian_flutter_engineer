@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get_core/get_core.dart';
+import 'package:get/get_instance/get_instance.dart';
+import 'package:tractian_test/controllers/filter/text_filter_controller.dart';
 
 class SearchAtivoOuLocalField extends StatelessWidget {
   final _controller = TextEditingController();
@@ -9,8 +12,11 @@ class SearchAtivoOuLocalField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final TextFilterController textFilterController =
+        Get.find<TextFilterController>();
     return TextFormField(
       controller: _controller,
+      onChanged: (value) => textFilterController.setInput = value,
       decoration: InputDecoration(
         filled: true,
         fillColor: Colors.grey[200],
