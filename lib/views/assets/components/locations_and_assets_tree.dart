@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:tractian_test/controllers/data/data_controller.dart';
+import 'package:tractian_test/controllers/filter/button_filter_controller.dart';
 import 'package:tractian_test/controllers/filter/text_filter_controller.dart';
 import 'package:tractian_test/models/asset/asset.dart';
 import 'package:tractian_test/models/location/location.dart';
@@ -14,9 +15,9 @@ class LocationsAndAssetsTree extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final DataController dataController = Get.find<DataController>();
-    final TextFilterController textFilterController =
-        Get.find<TextFilterController>();
+    final dataController = Get.find<DataController>();
+    final textFilterController = Get.find<TextFilterController>();
+    final buttonFilterController = Get.find<ButtonFilterController>();
 
     return Obx(
       () {
@@ -24,30 +25,32 @@ class LocationsAndAssetsTree extends StatelessWidget {
         final List<Location> locations = dataController.locations;
         final List<Asset> unlinkedAssets = dataController.unlinkedAssets;
         const childrenPadding = 7.0;
+
+        List<Location> filteredLocations = locations;
+        List<Asset> filteredUnlinkedAssets = unlinkedAssets;
+
+        if (textFilterController.input.value.isNotEmpty) {
+          filteredLocations = textFilterController.filteredLocations;
+          filteredUnlinkedAssets = textFilterController.filteredUnlinkedAssets;
+        } else if (buttonFilterController.isEnergyFilterActive.value ||
+            buttonFilterController.isAlertFilterActive.value) {
+          filteredLocations = buttonFilterController.filteredLocations;
+          filteredUnlinkedAssets =
+              buttonFilterController.filteredUnlinkedAssets;
+        }
+
         return ListView(
-            children: textFilterController.input.value == ''
-                ? [
-                    ...locations.map((location) => location.isEmpty
-                        ? EmptyLocationTile(location: location)
-                        : LocationExpansionTile(
-                            location: location,
-                            childrenPadding: childrenPadding,
-                          )),
-                    ...unlinkedAssets.map((unlinkedAsset) =>
-                        ComponentTile(component: unlinkedAsset)),
-                  ]
-                : [
-                    ...textFilterController.filteredLocations
-                        .map((location) => location.isEmpty
-                            ? EmptyLocationTile(location: location)
-                            : LocationExpansionTile(
-                                location: location,
-                                childrenPadding: childrenPadding,
-                              )),
-                    ...textFilterController.filteredUnlinkedAssets.map(
-                        (unlinkedAsset) =>
-                            ComponentTile(component: unlinkedAsset)),
-                  ]);
+          children: [
+            ...filteredLocations.map((location) => location.isEmpty
+                ? EmptyLocationTile(location: location)
+                : LocationExpansionTile(
+                    location: location,
+                    childrenPadding: childrenPadding,
+                  )),
+            ...filteredUnlinkedAssets.map(
+                (unlinkedAsset) => ComponentTile(component: unlinkedAsset)),
+          ],
+        );
       },
     );
   }
